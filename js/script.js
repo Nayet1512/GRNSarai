@@ -322,9 +322,12 @@ function mostrarAlertaBootstrap(tipo, mensaje) {
   }, 2000);
 }
 
+// 🔹 Pon esto al principio o justo antes del addEventListener:
+const API_URL = 'https://grnsarai-production.up.railway.app'; // Reemplaza con tu URL real de Railway
 
 document.getElementById("contactoForm")?.addEventListener("submit", async function (e) {
   e.preventDefault();
+
   const nombre = document.getElementById("nombre").value.trim();
   const apellidoP = document.getElementById("apellidoP").value.trim();
   const apellidoM = document.getElementById("apellidoM").value.trim();
@@ -341,17 +344,17 @@ document.getElementById("contactoForm")?.addEventListener("submit", async functi
     return;
   }
 
-  const token = grecaptcha.getResponse();
+  const token = grecaptcha.getResponse(); // Captura del reCAPTCHA
   if (!token) {
     mostrarAlertaBootstrap("danger", "Por favor completa el reCAPTCHA.");
     return;
   }
 
   try {
-    const res = await fetch('http://localhost:3000/enviar', {
+    const res = await fetch(`${API_URL}/enviar`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre, apellidoP, apellidoM, email, celular }),
+      body: JSON.stringify({ nombre, apellidoP, apellidoM, email, celular, token }),
     });
 
     const mensaje = await res.text();
@@ -359,13 +362,12 @@ document.getElementById("contactoForm")?.addEventListener("submit", async functi
     document.getElementById("contactoForm").reset();
     grecaptcha.reset();
   } catch (err) {
+    console.error(err);
     mostrarAlertaBootstrap("danger", "No se pudo enviar el formulario. Inténtalo más tarde.");
   }
 });
+
 document.addEventListener("DOMContentLoaded", renderCards);
-
-
-
 
 
 

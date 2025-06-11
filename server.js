@@ -10,9 +10,10 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 // Claves
-const RESEND_API_KEY = 're_UyDBi5g3_76T8H9yjRSG9kgWGk7BEXVk7';
-const ADMIN_EMAIL = 'grn.inversion.inmobilaria@gmail.com';
-const RECAPTCHA_SECRET_KEY = '6Le5YlwrAAAAAGYF9gqA_xxxxAQUI_VA_TU_CLAVE_SECRETA';
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
+
 
 // Ruta del formulario
 app.post('/enviar', async (req, res) => {
@@ -54,7 +55,8 @@ app.post('/enviar', async (req, res) => {
       <p style="margin-bottom: 15px;">Hemos recibido tu solicitud de información. Nos alegra que estés interesado en nuestros desarrollos inmobiliarios.</p>
       <p style="margin-bottom: 15px;">Puedes descargar nuestro folleto informativo desde el siguiente enlace:</p>
       <p style="text-align: center;">
-        <a href="http://localhost/Real%20Estate%20inmobilaria/pdfs/EB-RL7782-combined.pdf" 
+        <a href="https://solucionesenbebidas.com/GRN/pdfs/EB-RL7782-combined.pdf">
+
            style="display:inline-block; padding:12px 24px; background-color:#3B5E5B; color:white; text-decoration:none; border-radius:5px; font-weight: bold;">
           Descargar PDF
         </a>
@@ -117,6 +119,8 @@ app.post('/enviar', async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log('Servidor iniciado en http://localhost:3000');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor iniciado en el puerto ${PORT}`);
 });
+
