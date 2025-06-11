@@ -1474,7 +1474,11 @@ font-family: 'Didot', serif;
   height: 100%;
   object-fit: cover;
   max-width: 100%;
-  
+  clip-path: inset(2% 0 2% 0);
+
+
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, white 20%, white 100%);
+  mask-image: linear-gradient(to right, transparent 0%, white 20%, white 100%);
 }
 
 
