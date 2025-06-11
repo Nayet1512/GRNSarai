@@ -2,23 +2,21 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const cors = require('cors');
-
 const app = express();
 
-// CORS completamente configurado
+// CORS correctamente configurado
 const corsOptions = {
-  origin: 'https://nayet1512.github.io', // Tu URL pública real
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  origin: 'https://nayet1512.github.io',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Maneja preflight
+app.options('/enviar', cors(corsOptions)); // 💡 Fix importante para CORS preflight
 
-// Logs útiles
+// Verifica el origin (opcional para debug)
 app.use((req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl} | Origin: ${req.headers.origin}`);
+  console.log('Origin:', req.headers.origin);
   next();
 });
 
@@ -35,11 +33,11 @@ const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
 app.post('/enviar', async (req, res) => {
   const { nombre, apellidoP, apellidoM, email, celular, token } = req.body;
 
-  if (!nombre || !email) {
+  if (!nombre || !email || !token) {
     return res.status(400).send('Faltan datos obligatorios.');
   }
 
-  // Validar reCAPTCHA solo si viene token
+  // Validar reCAPTCHA
   if (token) {
     try {
       const recaptchaRes = await axios.post(
@@ -49,74 +47,71 @@ app.post('/enviar', async (req, res) => {
           params: {
             secret: RECAPTCHA_SECRET_KEY,
             response: token,
-          }
+          },
         }
       );
 
       if (!recaptchaRes.data.success) {
-        console.warn('Fallo reCAPTCHA, pero se continúa el proceso.');
+        console.warn('Fallo reCAPTCHA, pero no se detiene el envío.');
       }
     } catch (error) {
       console.error('Error al verificar reCAPTCHA:', error.message);
     }
   } else {
-    console.warn('No se envió token de reCAPTCHA.');
+    console.warn('Token reCAPTCHA no enviado.');
   }
 
-  // Correo para el cliente
+  // Email para el cliente
   const mensajeCliente = {
     from: 'onboarding@resend.dev',
     to: email,
     subject: `Gracias por tu interés, ${nombre}`,
     html: `
-<div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; padding: 20px; background-color: #f4f4f4;">
-  <div style="max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-    <div style="background-color: #3B5E5B; padding: 20px; color: white; text-align: center;">
-      <h2 style="margin: 0;">Gracias por tu interés, ${nombre}.</h2>
-    </div>
-    <div style="padding: 30px;">
-      <p style="margin-bottom: 15px;">Hemos recibido tu solicitud de información. Nos alegra que estés interesado en nuestros desarrollos inmobiliarios.</p>
-      <p style="margin-bottom: 15px;">Puedes descargar nuestro folleto informativo desde el siguiente enlace:</p>
-      <p style="text-align: center;">
-        <a href="https://solucionesenbebidas.com/GRN/pdfs/EB-RL7782-combined.pdf" style="display:inline-block; padding:12px 24px; background-color:#3B5E5B; color:white; text-decoration:none; border-radius:5px; font-weight: bold;">
-          Descargar PDF
-        </a>
-      </p>
-      <p style="margin-top: 30px;">Un asesor se pondrá en contacto contigo muy pronto.</p>
-      <p>Saludos cordiales,<br><strong>GRN Inversión Inmobiliaria</strong></p>
-    </div>
-    <div style="background-color: #f1f1f1; text-align: center; padding: 15px; font-size: 0.9rem; color: #666;">
-      Este mensaje fue enviado automáticamente. Por favor, no respondas a este correo.
-    </div>
-  </div>
-</div>
-    `
+    <div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; padding: 20px; background-color: #f4f4f4;">
+      <div style="max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div style="background-color: #3B5E5B; padding: 20px; color: white; text-align: center;">
+          <h2 style="margin: 0;">Gracias por tu interés, ${nombre}.</h2>
+        </div>
+        <div style="padding: 30px;">
+          <p>Hemos recibido tu solicitud de información.</p>
+          <p>Puedes descargar nuestro folleto:</p>
+          <p style="text-align: center;">
+            <a href="https://solucionesenbebidas.com/GRN/pdfs/EB-RL7782-combined.pdf" style="display:inline-block; padding:12px 24px; background-color:#3B5E5B; color:white; text-decoration:none; border-radius:5px; font-weight: bold;">
+              Descargar PDF
+            </a>
+          </p>
+          <p>Un asesor se pondrá en contacto contigo pronto.</p>
+        </div>
+        <div style="background-color: #f1f1f1; text-align: center; padding: 15px; font-size: 0.9rem; color: #666;">
+          Este mensaje fue enviado automáticamente.
+        </div>
+      </div>
+    </div>`
   };
 
-  // Correo para el administrador
+  // Email para el administrador
   const mensajeInterno = {
     from: 'onboarding@resend.dev',
     to: ADMIN_EMAIL,
     subject: `Nuevo cliente interesado: ${nombre} ${apellidoP}`,
     html: `
-<div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; padding: 20px; background-color: #f9f9f9;">
-  <div style="max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-    <div style="background-color: #3B5E5B; padding: 20px; color: white; text-align: center;">
-      <h2 style="margin: 0;">Nuevo contacto desde tu sitio web</h2>
-    </div>
-    <div style="padding: 30px;">
-      <p><strong>Nombre:</strong> ${nombre}</p>
-      <p><strong>Apellido Paterno:</strong> ${apellidoP}</p>
-      <p><strong>Apellido Materno:</strong> ${apellidoM}</p>
-      <p><strong>Email:</strong> <a href="mailto:${email}" style="color: #3B5E5B;">${email}</a></p>
-      <p><strong>Celular:</strong> <a href="tel:${celular}" style="color: #3B5E5B;">${celular}</a></p>
-    </div>
-    <div style="background-color: #f1f1f1; text-align: center; padding: 15px; font-size: 0.9rem; color: #666;">
-      Este mensaje fue generado automáticamente por el formulario de contacto.
-    </div>
-  </div>
-</div>
-    `
+    <div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; padding: 20px; background-color: #f9f9f9;">
+      <div style="max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div style="background-color: #3B5E5B; padding: 20px; color: white; text-align: center;">
+          <h2>Nuevo contacto desde tu sitio web</h2>
+        </div>
+        <div style="padding: 30px;">
+          <p><strong>Nombre:</strong> ${nombre}</p>
+          <p><strong>Apellido Paterno:</strong> ${apellidoP}</p>
+          <p><strong>Apellido Materno:</strong> ${apellidoM}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Celular:</strong> ${celular}</p>
+        </div>
+        <div style="background-color: #f1f1f1; text-align: center; padding: 15px; font-size: 0.9rem; color: #666;">
+          Este mensaje fue generado automáticamente.
+        </div>
+      </div>
+    </div>`
   };
 
   try {
@@ -136,12 +131,12 @@ app.post('/enviar', async (req, res) => {
 
     res.status(200).send('Correos enviados correctamente.');
   } catch (error) {
-    console.error('Error al enviar correo:', error.response?.data || error.message);
+    console.error(error.response?.data || error.message);
     res.status(500).send('Error al enviar el correo.');
   }
 });
 
-// Puerto dinámico para Railway
+// Puerto
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor iniciado en el puerto ${PORT}`);
