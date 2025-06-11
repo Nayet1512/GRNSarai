@@ -9,15 +9,40 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
+// Claves
 const RESEND_API_KEY = 're_UyDBi5g3_76T8H9yjRSG9kgWGk7BEXVk7';
 const ADMIN_EMAIL = 'grn.inversion.inmobilaria@gmail.com';
+const RECAPTCHA_SECRET_KEY = '6Le5YlwrAAAAAGYF9gqA_xxxxAQUI_VA_TU_CLAVE_SECRETA';
 
+// Ruta del formulario
 app.post('/enviar', async (req, res) => {
-  const { nombre, apellidoP, apellidoM, email, celular } = req.body;
+  const { nombre, apellidoP, apellidoM, email, celular, token } = req.body;
 
+  // Validar reCAPTCHA
+  try {
+    const recaptchaRes = await axios.post(
+      'https://www.google.com/recaptcha/api/siteverify',
+      null,
+      {
+        params: {
+          secret: RECAPTCHA_SECRET_KEY,
+          response: token,
+        },
+      }
+    );
+
+    if (!recaptchaRes.data.success) {
+      return res.status(403).send('Fallo la verificación de reCAPTCHA.');
+    }
+  } catch (error) {
+    console.error('Error al verificar reCAPTCHA:', error.message);
+    return res.status(500).send('Error al verificar reCAPTCHA.');
+  }
+
+  // Correos
   const mensajeCliente = {
     from: 'onboarding@resend.dev',
-    to: email, 
+    to: email,
     subject: `Gracias por tu interés, ${nombre}`,
     html: `
 <div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; padding: 20px; background-color: #f4f4f4;">
@@ -47,7 +72,7 @@ app.post('/enviar', async (req, res) => {
 
   const mensajeInterno = {
     from: 'onboarding@resend.dev',
-    to: ADMIN_EMAIL, 
+    to: ADMIN_EMAIL,
     subject: `Nuevo cliente interesado: ${nombre} ${apellidoP}`,
     html: `
 <div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; padding: 20px; background-color: #f9f9f9;">
@@ -71,7 +96,6 @@ app.post('/enviar', async (req, res) => {
   };
 
   try {
-    // Enviar correo al cliente
     await axios.post('https://api.resend.com/emails', mensajeCliente, {
       headers: {
         Authorization: `Bearer ${RESEND_API_KEY}`,
@@ -79,7 +103,6 @@ app.post('/enviar', async (req, res) => {
       }
     });
 
-    // Enviar correo al administrador
     await axios.post('https://api.resend.com/emails', mensajeInterno, {
       headers: {
         Authorization: `Bearer ${RESEND_API_KEY}`,
@@ -87,7 +110,7 @@ app.post('/enviar', async (req, res) => {
       }
     });
 
-    res.status(200).send('<i class="bi bi-envelope"></i> Correos enviados correctamente.');
+    res.status(200).send('Correos enviados correctamente.');
   } catch (error) {
     console.error(error.response?.data || error.message);
     res.status(500).send('Error al enviar el correo.');
