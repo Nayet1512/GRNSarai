@@ -37,6 +37,8 @@ app.post('/enviar', async (req, res) => {
   }
 
   // Validar reCAPTCHA
+  // Validar reCAPTCHA solo si hay token
+if (token) {
   try {
     const recaptchaRes = await axios.post(
       'https://www.google.com/recaptcha/api/siteverify',
@@ -50,12 +52,16 @@ app.post('/enviar', async (req, res) => {
     );
 
     if (!recaptchaRes.data.success) {
-      return res.status(403).send('Fallo la verificación de reCAPTCHA.');
+      console.warn('Fallo reCAPTCHA, pero no se detiene el envío.');
     }
   } catch (error) {
     console.error('Error al verificar reCAPTCHA:', error.message);
-    return res.status(500).send('Error al verificar reCAPTCHA.');
+    // No detener el proceso por reCAPTCHA fallido
   }
+} else {
+  console.warn('Token reCAPTCHA no enviado.');
+}
+
 
   // Mensaje para cliente
   const mensajeCliente = {

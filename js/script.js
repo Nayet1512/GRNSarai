@@ -345,16 +345,20 @@ document.getElementById("contactoForm")?.addEventListener("submit", async functi
   }
 
   const token = grecaptcha.getResponse(); // Captura del reCAPTCHA
-  if (!token) {
-    mostrarAlertaBootstrap("danger", "Por favor completa el reCAPTCHA.");
-    return;
-  }
+// Si no hay token, mostramos advertencia pero NO detenemos el envío
+if (!token) {
+  console.warn("reCAPTCHA no completado, pero continuamos...");
+  // Opcionalmente puedes avisar:
+  mostrarAlertaBootstrap("warning", "Se recomienda completar el reCAPTCHA.");
+}
+
 
   try {
     const res = await fetch(`${API_URL}/enviar`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nombre, apellidoP, apellidoM, email, celular, token }),
+
     });
 
     const mensaje = await res.text();
