@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>GRN inversión Inmobiliaria</title>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">      
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+        
+
+
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+        <link rel="icon" type="image/png" href="../imagenes/icoono.jpg">
+
+    </head>
+ <header>
+    <a href="#" class="LOGO">
+        <img src="../imagenes/logo-removebg-preview.png" alt="Logo" style="height: 50px; vertical-align: middle; margin-right: 8px;">
+        GRN Inversión Inmobiliaria
+    </a>
+    <nav>
+    <ul class="nav justify-content-center gap-4 py-3">
+        
+        <li class="nav-item text-center">
+            <a class="nav-link text-white d-flex flex-column align-items-center" href="propiedades.html">
+                <i class="bi bi-building fs-4 mb-1"></i>
+                <span class="small fw-light">Propiedades</span>
+            </a>
+        </li>
+        <li class="nav-item text-center">
+            <a class="nav-link text-white d-flex flex-column align-items-center" href="#contacto">
+                <i class="bi bi-envelope-fill fs-4 mb-1"></i>
+                <span class="small fw-light">Contacto</span>
+            </a>
+        </li>
+        <li class="nav-item text-center">
+            <a class="nav-link text-white d-flex flex-column align-items-center" href="https://wa.me/529981477653">
+                <i class="bi bi-whatsapp fs-4 mb-1"></i>
+                <span class="small fw-light">Agendar</span>
+            </a>
+        </li>
+        <li class="nav-item text-center">
+            <a class="nav-link text-white d-flex flex-column align-items-center" href="nosotros.html">
+                <i class="bi bi-people-fill fs-4 mb-1"></i>
+                <span class="small fw-light">Nosotros</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+</header>
+<div class="fondo">
+<section class="zona1">
+
+    <div class="cuadros-container">
+      <!-- Las 128 imágenes se generan por JS -->
+       <div class="A" id="bloque-escritorio">
+<h1 style="font-size: 2.8rem; font-weight: 600; font-family: 'Didot', serif; line-height: 1.4; letter-spacing: 1px; margin-bottom: 0.5rem;">El nuevo destino de vida</h1>
+<h1 style="font-size: 3.8rem; font-weight: 700; font-family: 'Didot', serif; line-height: 1.5; letter-spacing: 1.2px;">Planeado en Merida</h1>
+<p class="marca" style="text-transform: uppercase; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.2rem; line-height: 1.5; letter-spacing: 1px;">Casas de departamentos desde $3'237,986</p>
+<button class="boton" onclick="location.href='nosotros.html'" style="font-size: 1.4rem; padding: 18px 36px; border-color: white; border-radius: 50px; color: white; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif;">Solicitar más información</button>
+
+
+</div>
+
+<div class="A" id="bloque-movil" style="display: none;">
+  <p class="texto-grn">Inmobiliaria GRN</p>
+<button class="boton-grn" onclick="location.href='nosotros.html'">Conócenos</button>
+
+</div>
+
+    </div>
+
+</section>
+
+
+
+
+
+<div class="bloque-proyecto">
+  <p class="linea-1">UN PROYECTO CON</p>
+  <p class="linea-2">MÁS DE 6 LOCALIDADES, LAGO Y PAISAJES NATURALES</p>
+  <p class="linea-3">En un entorno natural que revoluciona tu estilo de vida</p>
+</div>
+
+<div id="L" class="container my-5">
+  <div class="d-flex flex-wrap align-items-center justify-content-between gap-4" style="min-height: 350px;">
+    <div class="col-md-5">
+      <h2 class="mb-3" style="color: #3B5E5B;">¿Quiénes somos?</h2>
+      <p style="font-size: 1.1rem; line-height: 1.6;">
+        En <strong>GRN Inversión Inmobiliaria</strong> nos dedicamos a crear oportunidades únicas de inversión y vivienda en las zonas más exclusivas del Caribe Mexicano. <br><br>
+        Nuestra experiencia y compromiso nos respaldan para ofrecerte solo los mejores desarrollos inmobiliarios en Cancún, Playa del Carmen y más.
+      </p>
+      <div style="text-align: right; margin-top: 15px;">
+        <a href="nosotros.html" class="btn btn-outline-success" style="background-color: #3B5E5B; color: white; border: none;">
+          Conoce más
+        </a>
+      </div>
+    </div>
+
+    <div class="col-md-6 position-relative d-flex align-items-center">
+      <button class="carousel-arrow left" onclick="scrollCards(-1)">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+
+      <div class="cards-wrapper overflow-hidden" style="width: 100%;" id="cardsContainer">
+        <div class="cards-track d-flex gap-3" id="cardsTrack">
+          <!-- Aquí se inyectan las tarjetas desde JS -->
+        </div>
+      </div>
+
+
+      <button class="carousel-arrow right" onclick="scrollCards(1)">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body p-4">
+        <div class="row g-4">
+
+          <!-- Carrusel de imágenes a la izquierda -->
+          <div class="col-md-6">
+            <div id="modalCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner" id="carouselImages"></div>
+  
+  <div class="carousel-indicators custom-indicators-modal" id="carouselIndicators"></div>
+  
+</div>
+<div id="customCarouselControls" class="d-flex justify-content-between align-items-center mt-2">
+  <button id="prevSlide" class="border-0 bg-transparent p-2" style="outline: none;">&#60;</button>
+  <button id="nextSlide" class="border-0 bg-transparent p-2" style="outline: none;">&#62;</button>
+</div> 
+          </div>
+         
+
+
+          <!-- Información a la derecha -->
+          <div class="col-md-6 d-flex flex-column justify-content-between">
+            <div>
+              <h3 id="infoModalLabel" class="mb-3" style="color:#3B5E5B;"></h3>
+              <ul class="list-unstyled text-dark" id="modalInfoList"></ul>
+            </div>
+            <button id="btnPdf" class="btn btn-verde mt-4 align-self-start">
+              <i class="bi bi-file-earmark-pdf-fill"></i> Ver / Descargar PDF
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+
+
+
+
+<br><br><br><br><section class="franja-mapa">
+  <div class="contenedor-franja">
+    <div class="imagen-mapa">
+      <img src="../imagenes/yucatan1.png" alt="Mapa Mérida">
+    </div>
+    <div class="info-mapa">
+      <h2>DONDE NACE LA COMUNIDAD<br>MÁS VIVA DE MÉRIDA</h2>
+      <p class="descripcion">
+        Una nueva zona planeada para tu vida con toda la grandeza de un entorno natural
+      </p>
+
+      <div class="tabla-datos">
+        <div class="dato">
+          <strong>10 MIN</strong>
+          Centro Histórico
+        </div>
+        <div class="dato">
+          <strong>5 MIN</strong>
+          Periférico Mérida
+        </div>
+        <div class="dato">
+          <strong>8 MIN</strong>
+          Universidad Marista
+        </div>
+        <div class="dato">
+          <strong>12 MIN</strong>
+          Aeropuerto Internacional
+        </div>
+        <div class="dato">
+          <strong>3 MIN</strong>
+          City Center / Plazas
+        </div>
+        <div class="dato">
+          <strong>IT Innovation School</strong>
+          Dentro de zona residencial
+        </div>
+      </div>
+
+      <a href="https://www.google.com/maps/place/97000+Mérida,+Yuc./@20.9809364,-89.66448,12.6z" target="_blank" class="btn-mapa">
+        <img src="../imagenes/maps2.png" alt="Google Maps">
+        Ver en Google Maps
+      </a>
+    </div>
+  </div>
+</section>
+<section class="AN">
+  <div class="intro">
+    <h2>UNA COMUNIDAD PLANEADA</h2>
+    <p>
+      GRN Inversión Inmobiliaria contará con espacios para todos los servicios que requieran sus habitantes, como tiendas de conveniencia, tiendas de autoservicio, escuelas, guarderías, hospital, farmacia, plazas comerciales, cafeterías, hoteles, iglesias, restaurantes, tintorerías, veterinaria, lavandería y más.
+    </p>
+    <br><br>
+  </div>
+
+  <div class="bloque-ubicacion">
+    <div class="texto">
+      <h3>Excelente ubicación</h3>
+      <p>El proyecto más espectacular en Cancún</p>
+    </div>
+    <div class="imagenes-ubicacion">
+      <img src="../imagenes/acostada.jpeg" class="img-horizontal" alt="Foto horizontal">
+      <img src="../imagenes/parada.jpeg" class="img-vertical" alt="Foto vertical">
+    </div>
+  </div>
+
+<div class="bloque-servicios" style="width: 100%; display: flex; justify-content: center; align-items: center;"><video id="videoServicio" src="../mp4/Beige and White Clean Minimalist Birthday Video (1).mp4" muted playsinline style="max-width: 70%; border-radius: 24px; margin-top: -30px; margin-bottom: -30px;"></video></div><script>const video=document.getElementById('videoServicio');let hasPlayed=false;video.autoplay=false;video.loop=false;const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting&&!hasPlayed){video.play();hasPlayed=true;}});},{threshold:0.5});observer.observe(video);</script>
+
+</section>
+<div class="N" id="contacto" >
+  <section class="franja-formulario">
+    <div class="grid-formulario">
+      <div class="formulario">
+        <h2>SOLICITA MÁS INFORMES SOBRE <br>ESTE ESTILO DE VIDA</h2>
+        <form id="contactoForm" novalidate>
+          <input type="text" id="nombre" name="nombre" placeholder="Nombre*" required>
+
+          <div class="campo-doble">
+            <input type="text" id="apellidoP" name="apellidoP" placeholder="Apellido Paterno*" required>
+            <input type="text" id="apellidoM" name="apellidoM" placeholder="Apellido Materno*" required>
+          </div>
+
+          <div class="campo-doble">
+            <input type="email" id="email" name="email" placeholder="Email*" required>
+            <input type="tel" id="celular" name="celular" placeholder="Celular*" pattern="[0-9]{10}" required>
+          </div>
+        <!-- <div class="g-recaptcha" data-sitekey="6LeuzEcrAAAAAPkI0HMnW8ULMSnTTg6okJRH-zfv"></div> para cuando esta en localhostt -->
+        <div class="g-recaptcha" data-sitekey="6LeXQVwrAAAAAE0PW1aTQYuafU-DmWbXw4JB01rm"></div>
+  <button type="submit" class="boton-enviar">ENVIAR</button>
+        </form>
+      </div>
+      <div class="imagen-formulario">
+        <div class="overlay-img"></div>
+        <div class="info-contacto">
+  <h3>Información de Contacto</h3>
+  <p><i class="fas fa-map-marker-alt"></i> Dirección: M 310, sm 109, Cumbres, Cancún, Quintana Roo.</p>
+  <p><i class="fas fa-phone"></i> Teléfono Oficina: 998 1477653</p>
+  <p><i class="fas fa-mobile-alt"></i> Celular: +52 998 1477653</p>
+  <p><i class="fas fa-envelope"></i> Email: mnieto@grn.com.mx</p>
+
+  <hr>
+
+  <h3>Horarios de Atención</h3>
+  <p><i class="fas fa-clock"></i> Lunes a Sábado: 10:00 AM - 6:00 PM</p>
+</div>
+        <img src="../imagenes/derecha2.jpeg" alt="Imagen del proyecto">
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<div class="AYE">
+  <div class="aye-titulo">
+    <h2 style="font-family: 'Didot', serif;font-weight:300;font-size:2.5rem;color:#000;text-transform:uppercase;letter-spacing:1px;text-align:center;margin-bottom:15px;">GRANDES PILARES NOS FUNDAMENTAN</h2>
+
+
+    <p>LA GRANDEZA DE GRN ES EL ESPACIO PARA UNA NUEVA COMUNIDAD EN ARMONÍA CON TU VIDA</p>
+  </div>
+
+  <div class="aye-contenido">
+    <img src="../imagenes/edificio.jpeg" alt="Edificio" class="aye-imagen">
+    <div class="aye-derecha">
+      <div id="carouselPilares" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" data-bs-pause="hover">
+        <div class="carousel-inner fixed-height">
+<div class="carousel-item active">
+  <div class="pilar-item">
+    <i class="bi bi-people-fill"></i>
+    <div>
+      <h4>VIDA EN COMUNIDAD</h4>
+      <p>
+        Organizada para lograr comunidades autosustentables que, día con día, incrementen su valor patrimonial y humano. Promovemos un estilo de vida colaborativo y responsable, basado en la convivencia armónica, el respeto mutuo y la participación activa de los residentes. GRN está diseñado para fortalecer los lazos sociales mediante espacios comunes bien planificados, como parques, foros comunitarios, huertos urbanos y centros culturales que inspiran a las personas a interactuar, compartir y construir relaciones significativas. Aquí, la comunidad no es solo un concepto: es el corazón del proyecto.
+      </p>
+    </div>
+  </div>
+</div>
+<div class="carousel-item">
+  <div class="pilar-item">
+    <i class="bi bi-flower3"></i>
+    <div>
+      <h4>ENTORNO NATURAL</h4>
+      <p>
+        Un lugar inigualable, vibrante e icónico inmerso en un entorno natural cuidadosamente preservado. En GRN priorizamos el equilibrio ecológico con amplias áreas verdes, jardines nativos, corredores biológicos y senderos ecológicos que invitan a la exploración consciente. Utilizamos especies endémicas que requieren bajo mantenimiento y contribuyen a la biodiversidad local. Cada espacio ha sido concebido para respetar el paisaje natural y ofrecer experiencias sensoriales enriquecedoras: el sonido del viento, la sombra de los árboles, y la presencia constante de la naturaleza en tu día a día. Aquí, vivir en armonía con el entorno es una realidad.
+      </p>
+    </div>
+  </div>
+</div>
+<div class="carousel-item">
+  <div class="pilar-item">
+    <i class="bi bi-person-arms-up"></i>
+    <div>
+      <h4>VIDA EN EQUILIBRIO</h4>
+      <p>
+        Una experiencia viva, incluyente y atractiva que fomenta un estilo de vida en equilibrio entre cuerpo, mente y entorno. GRN ofrece espacios diseñados para cultivar el bienestar integral: gimnasios al aire libre, zonas de meditación, salones multiusos, coworking natural, jardines terapéuticos, y actividades recreativas para todas las edades. Promovemos la conexión contigo mismo, con tu comunidad y con la naturaleza. Aquí, cada aspecto de tu día a día —desde tu rutina matutina hasta tu tiempo de descanso— está pensado para generar paz interior, salud emocional y plenitud personal. Vivir en equilibrio ya no es un ideal: es parte de tu estilo de vida diario.
+      </p>
+    </div>
+  </div>
+</div>
+<div class="carousel-item">
+  <div class="pilar-item">
+    <i class="bi bi-geo-alt-fill"></i>
+    <div>
+      <h4>ZONA PRIVILEGIADA</h4>
+      <p>
+        Ubicada estratégicamente en el nuevo gran destino de Cancún, GRN se sitúa en una comunidad integral de alta conectividad, accesibilidad y plusvalía. A solo minutos del Aeropuerto Internacional, estaciones del Tren Maya, playas paradisíacas, hospitales, escuelas, y centros comerciales, el proyecto ofrece lo mejor de ambos mundos: tranquilidad residencial y cercanía a servicios clave. Esta zona está pensada para el presente y el futuro, con una planificación urbana que garantiza infraestructura moderna, accesos fluidos y crecimiento sostenible. Ya sea para vivir o invertir, GRN te posiciona en el centro de un desarrollo con visión a largo plazo y gran proyección económica.
+      </p>
+    </div>
+  </div>
+</div>
+
+</div>
+        <div class="custom-indicators d-flex justify-content-center gap-3 mt-3" id="pilares-indicadores">
+          <i class="bi bi-circle-fill" data-bs-target="#carouselPilares" data-bs-slide-to="0"></i>
+          <i class="bi bi-circle" data-bs-target="#carouselPilares" data-bs-slide-to="1"></i>
+          <i class="bi bi-circle" data-bs-target="#carouselPilares" data-bs-slide-to="2"></i>
+          <i class="bi bi-circle" data-bs-target="#carouselPilares" data-bs-slide-to="3"></i>
+        </div>
+      </div>
+
+      <div class="aye-final">
+        <img src="../imagenes/logo-removebg-preview.png" alt="Mini logo" class="mini-logo">
+        <div class="aye-final-texto">
+          <h5>Con el respaldo y la solidez de <strong>GRN Inversión Inmobiliaria</strong></h5>
+          <p>Más de 20 Años en el mercado nos permiten otorgar la Garantía de Calidad y Plusvalía que nuestros clientes buscan.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br><br><br><br>
+<!-- Elfsight Google Reviews | Untitled Google Reviews -->
+<script src="https://static.elfsight.com/platform/platform.js" async></script>
+<div class="elfsight-app-5ad1fb99-0471-4702-bf5e-96f79e01e058" data-elfsight-app-lazy></div>
+<br><br><br><br>
+<div class="T">
+  <footer class="footer-grn">
+    <div class="footer-contenido">
+      <div class="footer-col izquierda">
+        <img src="../imagenes/logo-removebg-preview.png" alt="GRN Logo" class="logo-footer">
+        <p>
+          ©2025 <strong>GRN Inversión Inmobiliaria</strong>. Todos los derechos reservados. Términos y condiciones pueden aplicar.<br>
+          Aplican restricciones. Sujeto a disponibilidad de ubicación. Información sujeta a cambios sin previo aviso. Las imágenes mostradas son solo ilustrativas.
+        </p>
+        <div class="privacidad">
+          <a href="#">AVISO DE PRIVACIDAD</a> / <a href="#">PRIVACY POLICY</a>
+        </div>
+      </div>
+      <div class="footer-col derecha">
+        
+        <div class="social-icons">
+          <h4>SÍGUENOS</h4>
+          <a href="https://www.facebook.com/GRNinmobiliaria/"><i class="bi bi-facebook"></i></a>
+          <a href="https://www.instagram.com/grn_inmobiliaria?igsh=MzBkdTVidTQ0ZzB3"><i class="bi bi-instagram"></i></a>
+          <a href="https://www.youtube.com/@GRNInversionInmobiliaria/null"><i class="bi bi-youtube"></i></a>
+          <a href="www.linkedin.com/feed/update/urn:li:activity:7185799101056221184"><i class="bi bi-linkedin"></i></a>
+        </div>
+
+        <div class="footer-contactos-container">
+
+  <div class="footer-contacto-principal">
+    <strong>Principal:</strong>
+    <a href="https://wa.me/529981477653" target="_blank" style="text-decoration: none; color: inherit;">
+      <div class="footer-contacto">
+        <i class="bi bi-whatsapp"></i>
+        <span>998 147 7653</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="footer-contactos-secundarios" style="margin-top: 10px;">
+    <strong>Secundarios:</strong>
+    <a href="https://wa.me/529992331321" target="_blank" style="text-decoration: none; color: inherit; display: block; margin-top: 5px;">
+      <div class="footer-contacto">
+        <i class="bi bi-whatsapp"></i>
+        <span>999 233 1321</span>
+      </div>
+    </a>
+    <a href="https://wa.me/525531498292" target="_blank" style="text-decoration: none; color: inherit; display: block; margin-top: 5px;">
+      <div class="footer-contacto">
+        <i class="bi bi-whatsapp"></i>
+        <span>55 3149 8292</span>
+      </div>
+    </a>
+  </div>
+
+</div>
+
+
+
+        <div class="contenedor-boton">
+<button class="boton-footer" onclick="window.open('https://wa.me/529981477653', '_blank')">
+  Atención a clientes GRN
+</button>
+
+        </div>
+      </div>
+
+    </div>
+  </footer>
+</div>
+
+</section>   
+</div>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/script.js"></script>
+<body>
+  <div id="alertaFija" class="alerta-global" style="display: none;"></div>
+</body>
+</html>

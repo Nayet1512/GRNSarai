@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Propiedades</title>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">      
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+
+
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+        <link rel="icon" type="image/png" href="../imagenes/icoono.jpg">
+
+    </head>
+ <header>
+    <a href="#" class="LOGO">
+        <img src="../imagenes/logo-removebg-preview.png" alt="Logo" style="height: 50px; vertical-align: middle; margin-right: 8px;">
+        GRN Inversión Inmobiliaria
+    </a>
+    <nav>
+    <ul class="nav justify-content-center gap-4 py-3">
+        <li class="nav-item text-center">
+            <a class="nav-link text-white d-flex flex-column align-items-center" href="index.html">
+                <i class="bi bi-house-fill fs-4 mb-1"></i>
+                <span class="small fw-light">Inicio</span>
+            </a>
+        </li>
+        
+        <li class="nav-item text-center">
+            <a class="nav-link text-white d-flex flex-column align-items-center" href="#contacto">
+                <i class="bi bi-envelope-fill fs-4 mb-1"></i>
+                <span class="small fw-light">Contacto</span>
+            </a>
+        </li>
+        <li class="nav-item text-center">
+            <a class="nav-link text-white d-flex flex-column align-items-center" href="https://wa.me/529981477653">
+                <i class="bi bi-whatsapp fs-4 mb-1"></i>
+                <span class="small fw-light">Agendar</span>
+            </a>
+        </li>
+        <li class="nav-item text-center">
+            <a class="nav-link text-white d-flex flex-column align-items-center" href="nosotros.html">
+                <i class="bi bi-people-fill fs-4 mb-1"></i>
+                <span class="small fw-light">Nosotros</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+</header>
+
+<div class="fondo">
+
+ <div class="cuadros-container" style="transform: translateY(-200%); visibility: hidden; position: absolute;">
+  <!-- Las 128 imágenes se generan por JS -->
+</div>
+
+  <div id="propiedadesgrid" class="propiedadesgrid-image"></div>
+<div id="L" class="container my-5">
+<p style="text-align: center; font-family: 'Didot', serif; font-size: 2.7rem; font-weight: 600; color: #3B5E5B; margin-bottom: 2rem;">Conoce nuestras residencias</p>
+
+
+<div class="mb-4 d-flex flex-nowrap gap-3 align-items-center overflow-auto" style="color:#3B5E5B;">
+
+    <input 
+      type="text" 
+      id="filtroNombre" 
+      placeholder="Buscar por nombre..." 
+      style="padding: .5rem 1rem; border-radius: .3rem; border: 1px solid #3B5E5B; min-width: 200px;"
+    >
+    <select id="filtroPrecio" style="padding: .5rem 1rem; border-radius: .3rem; border: 1px solid #3B5E5B;">
+      <option value="">Precio</option>
+      <option value="0-5000000">Hasta $5M</option>
+      <option value="5000001-10000000">$5M - $10M</option>
+      <option value="10000001-15000000">$10M - $15M</option>
+      <option value="15000001-20000000">$15M - $20M</option>
+      <option value="20000001-25000000">$20M - $25M</option>
+      <option value="25000001-30000000">$25M - $30M</option>
+      <option value="30000001-9999999999">Más de $30M</option>
+    </select>
+    <select id="filtroMetros" style="padding: .5rem 1rem; border-radius: .3rem; border: 1px solid #3B5E5B;">
+  <option value="">Metros²</option>
+  <option value="0-60">Hasta 60 m²</option>
+  <option value="61-90">61 - 90 m²</option>
+  <option value="91-120">91 - 120 m²</option>
+  <option value="121-200">121 - 200 m²</option>
+  <option value="201-9999">Más de 200 m²</option>
+</select>
+
+
+  </div>
+  <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body p-4">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div id="modalCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner" id="carouselImages"></div>
+                <div class="carousel-indicators custom-indicators-modal" id="carouselIndicators"></div>
+              </div>
+              <div id="customCarouselControls" class="d-flex justify-content-between align-items-center mt-2">
+                <button id="prevSlide" class="border-0 bg-transparent p-2">&#60;</button>
+                <button id="nextSlide" class="border-0 bg-transparent p-2">&#62;</button>
+              </div>
+            </div>
+            <div class="col-md-6 d-flex flex-column justify-content-between">
+              <div>
+                <h3 id="infoModalLabel" class="mb-3" style="color:#3B5E5B;"></h3>
+                <ul class="list-unstyled text-dark" id="modalInfoList"></ul>
+              </div>
+              <button id="btnPdf" class="btn btn-verde mt-4 align-self-start">
+                <i class="bi bi-file-earmark-pdf-fill"></i> Ver / Descargar PDF
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-5">
+    <div id="contenedorTarjetasGrandes" class="row row-cols-1 row-cols-md-3 g-4">
+      <!-- Tarjetas generadas por JS -->
+    </div>
+      <div id="cardsTrack" class="d-flex flex-wrap gap-3 justify-content-center" style="opacity: 0; pointer-events: none; position: absolute; width: 0; height: 0; overflow: hidden;"></div>
+
+  </div>
+
+</div>
+<section class="calculadora mt-3" style="background-color: #d0c4b4; padding: 60px 80px; margin: 0 12%;">
+  <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; font-family: 'Didot', serif; color: #fff;">
+
+    <!-- Columna izquierda -->
+    <div style="flex: 1 1 55%;">
+      <h2 style="font-size: 2.5rem; font-weight: 300; margin-bottom: 10px;color: rgb(0, 0, 0);">CALCULADORA</h2>
+      <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 1.5rem; margin-bottom: 30px; font-family: 'Poppins', sans-serif; color: rgb(0, 0, 0);">
+        Cotiza aquí tu casa o departamento
+      </p>
+
+      <!-- Seleccionar prototipo -->
+      <label style="font-weight: 600; display: block; margin-bottom: 10px; text-transform: uppercase; font-size: 1.2rem; font-family: 'Poppins', sans-serif; color: white;">Selecciona el prototipo:</label>
+      <div style="position: relative;">
+        <select id="selectDepartamento" style="width: 100%; padding: 16px 50px 16px 16px; border-radius: 14px; border: none; font-size: 1rem; font-family: 'Poppins', sans-serif; appearance: none; background: white; color: #808080; font-weight: 600; text-transform: uppercase;">
+          <!-- Se llena desde JS -->
+        </select>
+        <div style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 0px;">
+          <i class="bi bi-caret-up" style="color: black;"></i>
+  <i class="bi bi-caret-down" style="color: black;"></i>
+        </div>
+      </div>
+
+      <!-- Porcentaje de enganche -->
+      <label style="font-weight: 600; display: block; margin: 30px 0 10px; text-transform: uppercase; font-size: 1.2rem; font-family: 'Poppins', sans-serif; color: white;">Selecciona el porcentaje de enganche:</label>
+      <div style="position: relative; height: 60px;">
+        <input type="range" min="0" max="100" value="20" id="porcentaje" style="width: 100%; cursor: pointer; background: transparent; appearance: none; height: 2px; background-color: white;">
+        <div id="porcentajeValor" style="position: absolute; top: -40px; transform: translateX(-50%); background: #b4aa86; color: white; padding: 6px 12px; border-radius: 20px; font-size: 1rem; font-family: 'Poppins', sans-serif; left: 20%; transition: opacity 0.3s ease;">
+          20%
+        </div>
+      </div>
+      <style>
+        input[type=range]::-webkit-slider-thumb {
+          appearance: none;
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: #b4aa86;
+          cursor: pointer;
+          margin-top: -7px;
+        }
+      </style>
+
+      <!-- Enganche -->
+      <p id="engancheTexto" style="margin-top: 20px; font-weight: 600; font-family: 'Poppins', sans-serif; text-transform: uppercase; font-size: 1.2rem; color: white;">
+        Enganche: $0.00 MXN
+      </p>
+    </div>
+
+    <!-- Columna derecha -->
+    <div style="flex: 1 1 40%; background: white; border-radius: 24px; padding: 40px; font-family: 'Poppins', sans-serif; display: flex; flex-direction: column; justify-content: space-between; min-height: 180px; margin-top: 9%;">
+  <div style="text-align: center;">
+    <h3 style="font-size: 1.8rem; font-weight: 600; color: #808080;">MENSUALIDAD ESTIMADA:</h3>
+    <p id="mensualidadResultado" style="font-size: 2.2rem; font-weight: bold; margin-top: 10px; color: #808080;">
+      $0.00 MXN
+    </p>
+    <p style="margin-top: 10px; font-size: 1.1rem; color: #808080;">Plazo a 20 años</p>
+  </div>
+
+  <a id="btnInteresa" href="#" style="margin-top: 30px; text-align: center; background-color: #3B5E5B; color: white; padding: 16px 24px; font-size: 1.2rem; border-radius: 40px; font-weight: 600; text-decoration: none; display: block;">ME INTERESA</a>
+</div>
+
+  </div>
+</section>
+
+
+
+
+<br><br>
+
+<div class="N" id="contacto" >
+  <section class="franja-formulario">
+    <div class="grid-formulario">
+      <div class="formulario">
+        <h2>SOLICITA MÁS INFORMES SOBRE <br>ESTE ESTILO DE VIDA</h2>
+        <form id="contactoForm" novalidate>
+          <input type="text" id="nombre" name="nombre" placeholder="Nombre*" required>
+
+          <div class="campo-doble">
+            <input type="text" id="apellidoP" name="apellidoP" placeholder="Apellido Paterno*" required>
+            <input type="text" id="apellidoM" name="apellidoM" placeholder="Apellido Materno*" required>
+          </div>
+
+          <div class="campo-doble">
+            <input type="email" id="email" name="email" placeholder="Email*" required>
+            <input type="tel" id="celular" name="celular" placeholder="Celular*" pattern="[0-9]{10}" required>
+          </div>
+            <!-- <div class="g-recaptcha" data-sitekey="6LeuzEcrAAAAAPkI0HMnW8ULMSnTTg6okJRH-zfv"></div> para cuando esta en localhostt -->
+        <div class="g-recaptcha" data-sitekey="6LeXQVwrAAAAAE0PW1aTQYuafU-DmWbXw4JB01rm"></div>
+  <button type="submit" class="boton-enviar">ENVIAR</button>
+        </form>
+      </div>
+      <div class="imagen-formulario">
+        <div class="overlay-img"></div>
+        <div class="info-contacto">
+  <h3>Información de Contacto</h3>
+  <p><i class="fas fa-map-marker-alt"></i> Dirección: M 310, sm 109, Cumbres, Cancún, Quintana Roo.</p>
+  <p><i class="fas fa-phone"></i> Teléfono Oficina: 998 1477653</p>
+  <p><i class="fas fa-mobile-alt"></i> Celular: +52 998 1477653</p>
+  <p><i class="fas fa-envelope"></i> Email: mnieto@grn.com.mx</p>
+
+  <hr>
+
+  <h3>Horarios de Atención</h3>
+  <p><i class="fas fa-clock"></i> Lunes a Sábado: 10:00 AM - 6:00 PM</p>
+</div>
+
+        <img src="../imagenes/derecha2.jpeg" alt="Imagen del proyecto">
+      </div>
+    </div>
+  </section>
+</div>
+<br><br><br><br>
+<!-- Elfsight Google Reviews | Untitled Google Reviews -->
+<script src="https://static.elfsight.com/platform/platform.js" async></script>
+<div class="elfsight-app-5ad1fb99-0471-4702-bf5e-96f79e01e058" data-elfsight-app-lazy></div>
+<br><br><br><br>
+<div class="T">
+  <footer class="footer-grn">
+    <div class="footer-contenido">
+      <div class="footer-col izquierda">
+        <img src="../imagenes/logo-removebg-preview.png" alt="GRN Logo" class="logo-footer">
+        <p>
+          ©2025 <strong>GRN Inversión Inmobiliaria</strong>. Todos los derechos reservados. Términos y condiciones pueden aplicar.<br>
+          Aplican restricciones. Sujeto a disponibilidad de ubicación. Información sujeta a cambios sin previo aviso. Las imágenes mostradas son solo ilustrativas.
+        </p>
+        <div class="privacidad">
+          <a href="#">AVISO DE PRIVACIDAD</a> / <a href="#">PRIVACY POLICY</a>
+        </div>
+      </div>
+      <div class="footer-col derecha">
+        
+        <div class="social-icons">
+          <h4>SÍGUENOS</h4>
+          <a href="https://www.facebook.com/GRNinmobiliaria/"><i class="bi bi-facebook"></i></a>
+          <a href="https://www.instagram.com/grn_inmobiliaria?igsh=MzBkdTVidTQ0ZzB3"><i class="bi bi-instagram"></i></a>
+          <a href="https://www.youtube.com/@GRNInversionInmobiliaria/null"><i class="bi bi-youtube"></i></a>
+          <a href="www.linkedin.com/feed/update/urn:li:activity:7185799101056221184"><i class="bi bi-linkedin"></i></a>
+        </div>
+
+        <div class="footer-contactos-container">
+
+  <div class="footer-contacto-principal">
+    <strong>Principal:</strong>
+    <a href="https://wa.me/529981477653" target="_blank" style="text-decoration: none; color: inherit;">
+      <div class="footer-contacto">
+        <i class="bi bi-whatsapp"></i>
+        <span>998 147 7653</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="footer-contactos-secundarios" style="margin-top: 10px;">
+    <strong>Secundarios:</strong>
+    <a href="https://wa.me/529992331321" target="_blank" style="text-decoration: none; color: inherit; display: block; margin-top: 5px;">
+      <div class="footer-contacto">
+        <i class="bi bi-whatsapp"></i>
+        <span>999 233 1321</span>
+      </div>
+    </a>
+    <a href="https://wa.me/525531498292" target="_blank" style="text-decoration: none; color: inherit; display: block; margin-top: 5px;">
+      <div class="footer-contacto">
+        <i class="bi bi-whatsapp"></i>
+        <span>55 3149 8292</span>
+      </div>
+    </a>
+  </div>
+
+</div>
+
+
+
+        <div class="contenedor-boton">
+<button class="boton-footer" onclick="window.open('https://wa.me/529981477653', '_blank')">
+  Atención a clientes GRN
+</button>
+
+        </div>
+      </div>
+
+    </div>
+  </footer>
+</div>
+
+</section>  
+</div> 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/script.js"></script>
+<body>
+  <div id="alertaFija" class="alerta-global" style="display: none;"></div>
+</body>
+</html>
