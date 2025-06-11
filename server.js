@@ -2,30 +2,29 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const cors = require('cors');
+
 const app = express();
 
-// CORS correctamente configurado
+// CORS completamente configurado
 const corsOptions = {
-  origin: 'https://nayet1512.github.io', // ✅ ESTO SÍ ESTÁ BIEN, aunque la URL completa tenga subcarpetas
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: 'https://nayet1512.github.io', // Tu URL pública real
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 };
 
-
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Maneja preflight
 
-// Opcional: para verificar que llega bien el origin
+// Logs útiles
 app.use((req, res, next) => {
-  console.log('Origin:', req.headers.origin);
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl} | Origin: ${req.headers.origin}`);
   next();
 });
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
-
-// ... el resto de tu código
-
 
 // Variables de entorno
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
@@ -36,38 +35,35 @@ const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
 app.post('/enviar', async (req, res) => {
   const { nombre, apellidoP, apellidoM, email, celular, token } = req.body;
 
-  if (!nombre || !email || !token) {
+  if (!nombre || !email) {
     return res.status(400).send('Faltan datos obligatorios.');
   }
 
-  // Validar reCAPTCHA
-  // Validar reCAPTCHA solo si hay token
-if (token) {
-  try {
-    const recaptchaRes = await axios.post(
-      'https://www.google.com/recaptcha/api/siteverify',
-      null,
-      {
-        params: {
-          secret: RECAPTCHA_SECRET_KEY,
-          response: token,
-        },
+  // Validar reCAPTCHA solo si viene token
+  if (token) {
+    try {
+      const recaptchaRes = await axios.post(
+        'https://www.google.com/recaptcha/api/siteverify',
+        null,
+        {
+          params: {
+            secret: RECAPTCHA_SECRET_KEY,
+            response: token,
+          }
+        }
+      );
+
+      if (!recaptchaRes.data.success) {
+        console.warn('Fallo reCAPTCHA, pero se continúa el proceso.');
       }
-    );
-
-    if (!recaptchaRes.data.success) {
-      console.warn('Fallo reCAPTCHA, pero no se detiene el envío.');
+    } catch (error) {
+      console.error('Error al verificar reCAPTCHA:', error.message);
     }
-  } catch (error) {
-    console.error('Error al verificar reCAPTCHA:', error.message);
-    // No detener el proceso por reCAPTCHA fallido
+  } else {
+    console.warn('No se envió token de reCAPTCHA.');
   }
-} else {
-  console.warn('Token reCAPTCHA no enviado.');
-}
 
-
-  // Mensaje para cliente
+  // Correo para el cliente
   const mensajeCliente = {
     from: 'onboarding@resend.dev',
     to: email,
@@ -97,7 +93,7 @@ if (token) {
     `
   };
 
-  // Mensaje para admin
+  // Correo para el administrador
   const mensajeInterno = {
     from: 'onboarding@resend.dev',
     to: ADMIN_EMAIL,
@@ -140,7 +136,7 @@ if (token) {
 
     res.status(200).send('Correos enviados correctamente.');
   } catch (error) {
-    console.error(error.response?.data || error.message);
+    console.error('Error al enviar correo:', error.response?.data || error.message);
     res.status(500).send('Error al enviar el correo.');
   }
 });
