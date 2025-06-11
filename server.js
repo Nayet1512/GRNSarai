@@ -4,16 +4,18 @@ const axios = require('axios');
 const cors = require('cors');
 
 const app = express();
-const cors = require('cors');
 
+// Configuración CORS
 const corsOptions = {
-  origin: 'https://nayet1512.github.io', // aquí va el dominio de tu frontend
-  optionsSuccessStatus: 200 // para evitar errores en navegadores antiguos
+  origin: 'https://nayet1512.github.io', // dominio frontend permitido
+  optionsSuccessStatus: 200 // para navegadores antiguos
 };
 
 app.use(cors(corsOptions));
+
+// Middleware para debug de CORS (opcional, puedes quitar luego)
 app.use((req, res, next) => {
-  console.log('Headers de CORS:', req.headers.origin);
+  console.log('Origen de la petición:', req.headers.origin);
   next();
 });
 
@@ -21,15 +23,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-// Claves
+// Variables de entorno
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
 
-
-// Ruta del formulario
+// Ruta POST /enviar
 app.post('/enviar', async (req, res) => {
   const { nombre, apellidoP, apellidoM, email, celular, token } = req.body;
+
+  if (!nombre || !email || !token) {
+    return res.status(400).send('Faltan datos obligatorios.');
+  }
 
   // Validar reCAPTCHA
   try {
@@ -52,7 +57,7 @@ app.post('/enviar', async (req, res) => {
     return res.status(500).send('Error al verificar reCAPTCHA.');
   }
 
-  // Correos
+  // Mensaje para cliente
   const mensajeCliente = {
     from: 'onboarding@resend.dev',
     to: email,
@@ -67,9 +72,7 @@ app.post('/enviar', async (req, res) => {
       <p style="margin-bottom: 15px;">Hemos recibido tu solicitud de información. Nos alegra que estés interesado en nuestros desarrollos inmobiliarios.</p>
       <p style="margin-bottom: 15px;">Puedes descargar nuestro folleto informativo desde el siguiente enlace:</p>
       <p style="text-align: center;">
-        <a href="https://solucionesenbebidas.com/GRN/pdfs/EB-RL7782-combined.pdf">
-
-           style="display:inline-block; padding:12px 24px; background-color:#3B5E5B; color:white; text-decoration:none; border-radius:5px; font-weight: bold;">
+        <a href="https://solucionesenbebidas.com/GRN/pdfs/EB-RL7782-combined.pdf" style="display:inline-block; padding:12px 24px; background-color:#3B5E5B; color:white; text-decoration:none; border-radius:5px; font-weight: bold;">
           Descargar PDF
         </a>
       </p>
@@ -84,6 +87,7 @@ app.post('/enviar', async (req, res) => {
     `
   };
 
+  // Mensaje para admin
   const mensajeInterno = {
     from: 'onboarding@resend.dev',
     to: ADMIN_EMAIL,
@@ -131,8 +135,8 @@ app.post('/enviar', async (req, res) => {
   }
 });
 
+// Puerto dinámico para Railway
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor iniciado en el puerto ${PORT}`);
 });
-
