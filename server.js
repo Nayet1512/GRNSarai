@@ -4,7 +4,19 @@ const axios = require('axios');
 const cors = require('cors');
 
 const app = express();
-app.use(cors());
+const cors = require('cors');
+
+const corsOptions = {
+  origin: 'https://nayet1512.github.io', // aquí va el dominio de tu frontend
+  optionsSuccessStatus: 200 // para evitar errores en navegadores antiguos
+};
+
+app.use(cors(corsOptions));
+app.use((req, res, next) => {
+  console.log('Headers de CORS:', req.headers.origin);
+  next();
+});
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
