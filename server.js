@@ -2,26 +2,30 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const cors = require('cors');
-
 const app = express();
 
-// Configuración CORS
+// CORS correctamente configurado
 const corsOptions = {
-  origin: 'https://nayet1512.github.io', // dominio frontend permitido
-  optionsSuccessStatus: 200 // para navegadores antiguos
+  origin: 'https://nayet1512.github.io', // ✅ ESTO SÍ ESTÁ BIEN, aunque la URL completa tenga subcarpetas
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 };
+
 
 app.use(cors(corsOptions));
 
-// Middleware para debug de CORS (opcional, puedes quitar luego)
+// Opcional: para verificar que llega bien el origin
 app.use((req, res, next) => {
-  console.log('Origen de la petición:', req.headers.origin);
+  console.log('Origin:', req.headers.origin);
   next();
 });
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
+
+// ... el resto de tu código
+
 
 // Variables de entorno
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
